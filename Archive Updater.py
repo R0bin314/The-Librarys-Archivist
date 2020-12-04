@@ -4,7 +4,7 @@ import re
 throwaway_doc = open('throaway.csv','w').close()
 throwaway_doc_2 = open('throwaway.txt', 'w').close()
 os.system('start /wait cmd /c "cd \"C:\\Users\\Owner\\Documents\\Archive Programs\\Archive - Copy\"" & del /s /q /f *.csv & del /s /q /f *.txt')
-os.system('start /wait cmd /c "cd \"C:\\Users\\Owner\\Documents\\Archive Programs\\DiscordChatExporter-master\\DiscordChatExporter.CLI\" & DiscordChatExporter.Cli.exe & DiscordChatExporter.Cli.exe exportguild -t \"NzU0NzgxNjY1NDk4MjM0OTEw.X15vNA.EKFJlOZBi2NtPVr5V6DjjqqsmqA\" -b -g 536352124695740427 -f Csv -o \"C:\\Users\\Owner\\Documents\\Archive Programs\\Archive - Copy\"')
+os.system('start /wait cmd /c "cd \"C:\\Users\\Owner\\Documents\\Archive Programs\\DiscordChatExporter-master\\DiscordChatExporter.CLI\" & DiscordChatExporter.Cli.exe & DiscordChatExporter.Cli.exe exportguild -t \"TOKEN\" -b -g 536352124695740427 -f Csv -o \"C:\\Users\\Owner\\Documents\\Archive Programs\\Archive - Copy\"')
 path = 'Archive - Copy'
 files = []
 file_type='csv'
