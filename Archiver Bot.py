@@ -16,7 +16,7 @@ import random
 import csv
 import os
 
-token=""
+token="TOKEN"
 client=commands.Bot(command_prefix="a!")
 previous_command = ""
 number_of_members=0
