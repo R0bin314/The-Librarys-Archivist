@@ -16,14 +16,14 @@ import random
 import csv
 import os
 
-token_file = open("C:\\Users\\Owner\\Documents\\Archive Token\\Token.txt", "r")
+token=""
 client=commands.Bot(command_prefix="a!")
 previous_command = ""
 number_of_members=0
 number_of_titles=0
 titlesx = []
 
-path = "C:\\Users\\Owner\\Documents\\archive test"
+path = "C:\\Users\\Owner\\Documents\\Archive"
 files = []
 
 for r, d, f in os.walk(path):
@@ -100,7 +100,6 @@ def verify_user_roles(roles, *argv):
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
-members_list = open("Members List.txt", "w").close()
 
 """
 BOOK COMMANDS:
