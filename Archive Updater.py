@@ -19,11 +19,11 @@ print(dictionary_list)
 print("=============")
 directory_list = []
 for file in files:
-    string = re.sub("[^0-9]", "", file)
-    print(string)
+    ID = re.sub("[^0-9]", "", file)
+    print(ID)
     if int(string) in dictionary_list:
         directory_list.append(file)
-        directory_id.append(string)
+        directory_id.append(ID)
     else:
         os.remove(file)
 # print(directory_list)
