@@ -21,7 +21,7 @@ client=commands.Bot(command_prefix="a!")
 previous_command = ""
 number_of_members=0
 number_of_titles=0
-titlesx = []
+titles_csv = []
 
 path = "C:\\Users\\Owner\\Documents\\Archive"
 files = []
@@ -52,9 +52,9 @@ def csv_parse(directory):
                     else:
                         print('TITLE SPLIT FINAL: {}'.format(x))
                         line_count += 1
-                        titlesx.append(x)
+                        titles_csv.append(x)
         print(f'Processed {line_count} lines.')
-        return titlesx
+        return titles_csv
 
 #Update the database.
 def update(titles_, author_list, title_list):
@@ -302,7 +302,6 @@ async def commands_list(message, *argv):
 @client.command()
 async def statistics(message):
     try:
-        guild = client.get_guild(536352124695740427) #This is the guild ID for The Library
         sqliteConnection = sqlite3.connect('C://Users//Owner//Desktop//The Library.db')
         cursor = sqliteConnection.cursor()
         sqlite_insert_query = 'SELECT COUNT(*) FROM Books;'
