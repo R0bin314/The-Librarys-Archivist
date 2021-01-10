@@ -16,7 +16,7 @@ import random
 import csv
 import os
 
-token="TOKEN"
+token="NzU0NzgxNjY1NDk4MjM0OTEw.X15vNA.urK0bRdF9yWo5rcBn2Jpfwt1rDI"
 client=commands.Bot(command_prefix="a!")
 previous_command = ""
 number_of_members=0
@@ -366,4 +366,13 @@ async def update_status(message, *argv):
     else:
         await message.channel.send("Nice try but only Robin can change my status ;)")
         
+@client.command()
+async def paper(message, *argv):
+    arg_list = [arg  for arg in argv]
+    print(arg_list)
+    os.system('rm -f /home/robin/main/scihub/*')
+    os.system("python3 -m PyPaperBot --doi='{}' --dwn-dir='/home/robin/main/scihub/'".format(arg_list[1]))
+    shutil.make_archive('/home/robin/main/scihub/', 'zip', '/home/robin/main/scihub/') 
+    file = discord.File('/home/robin/main/scihub.zip', 'paper.zip')
+    await message.channel.send("Here is your paper, {}!".format(message.author.mention),file=file)
 client.run(token)
