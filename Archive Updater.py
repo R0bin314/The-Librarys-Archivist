@@ -1,118 +1,39 @@
 import os
+from channel_id_dict import channel_id_name_dictionary as cinm
+import re
+throwaway_doc = open('throaway.csv','w').close()
+throwaway_doc_2 = open('throwaway.txt', 'w').close()
+os.system('start /wait cmd /c "cd \"C:\\Users\\Owner\\Documents\\Archive Programs\\Archive - Copy\"" & del /s /q /f *.csv & del /s /q /f *.txt')
+os.system('start /wait cmd /c "cd \"C:\\Users\\Owner\\Documents\\Archive Programs\\DiscordChatExporter-master\\DiscordChatExporter.CLI\" & DiscordChatExporter.Cli.exe & DiscordChatExporter.Cli.exe exportguild -t \"TOKEN\" -b -g 536352124695740427 -f Csv -o \"C:\\Users\\Owner\\Documents\\Archive Programs\\Archive - Copy\"')
+path = 'Archive - Copy'
+files = []
+file_type='csv'
+for r, d, f in os.walk(path):
+    for file in f:
+        if file_type in file:
+            files.append(os.path.join(r, file)) #Scan for files
 
-channel_ids = [
-(655209260459884564,'Action and Adventure', 'a-e'),
-(655209264750526464,'Action and Adventure', 'f-j'),
-(655209267963625473,'Action and Adventure', 'k-o'),
-(655209271276863499,'Action and Adventure', 'p-t'),
-(655209275525955587,'Action and Adventure', 'u-z'),
-(655209284044587018,'Autobiography', 'a-e'),
-(655209287521665029,'Autobiography', 'f-j'),
-(655209290591895581,'Autobiography', 'k-o'),
-(655209295176138793,'Autobiography', 'p-t'),
-(655209299236093952,'Autobiography', 'u-z'),
-(655209306559479821,'Biography', 'a-e'),
-(655209310439079976,'Biography', 'f-j'),
-(655209314385920000,'Biography', 'k-o'),
-(655209318169313282,'Biography', 'p-t'),
-(655209322766139412,'Biography', 'u-z'),
-(655209329565237260,'Economics', 'a-e'),
-(655209334690545665,'Economics', 'f-j'),
-(655209339359068188,'Economics', 'k-o'),
-(655209343792447509,'Economics', 'p-t'),
-(655209349806817283,'Economics', 'u-z'),
-(655209358623506433,'Fantasy', 'a-e'),
-(655209362507431948,'Fantasy', 'f-j'),
-(655209367066509312,'Fantasy', 'k-o'),
-(655209371466334221,'Fantasy', 'p-t'),
-(655209374616125450,'Fantasy', 'u-z'),
-(655209405041606657,'Historical Fiction', 'a-e'),
-(655209409667923992,'Historical Fiction', 'f-j'),
-(655209412910120962,'Historical Fiction', 'k-o'),
-(655209416433336343,'Historical Fiction', 'p-t'),
-(655209420367593482,'Historical Fiction', 'u-z'),
-(655209382086311946,'History', 'a-e'),
-(655209386280615946,'History', 'f-j'),
-(655209390176993292,'History', 'k-o'),
-(655209393641750529,'History', 'p-t'),
-(655209396984610816,'History', 'u-z'),
-(655209428605337654,'Horror', 'a-e'),
-(655209432073895966,'Horror', 'f-j'),
-(655209435332870185,'Horror', 'k-o'),
-(655209439305138199,'Horror', 'p-t'),
-(655209443302309889,'Horror', 'u-z'),
-(655209450088431678,'Languages and Linguistics', 'a-e'),
-(655209451116298260,'Languages and Linguistics', 'f-j'),
-(655209451912953856,'Languages and Linguistics', 'k-o'),
-(655209452894421002,'Languages and Linguistics', 'p-t'),
-(655209453896859653,'Languages and Linguistics', 'u-z'),
-(693487620633919513,'LGBTQ+', 'a-e'),
-(693487642867794021,'LGBTQ+', 'f-j'),
-(693487661335183411,'LGBTQ+', 'k-o'),
-(693487681434288149,'LGBTQ+', 'p-t'),
-(693487697108664360,'LGBTQ+', 'u-z'),
-(655209458355666977,'Manuals and Guides', 'a-e'),
-(655209462277341198,'Manuals and Guides', 'f-j'),
-(655209466094157849,'Manuals and Guides', 'k-o'),
-(655209470669881354,'Manuals and Guides', 'p-t'),
-(655209473912209428,'Manuals and Guides', 'u-z'),
-(655209482036445201,'Novels', 'a-e'),
-(655209486713356288,'Novels', 'f-j'),
-(655209491087753238,'Novels', 'k-o'),
-(655209496314118162,'Novels', 'p-t'),
-(655209501267460135,'Novels', 'u-z'),
-(655209510893518858,'Philosophy', 'a-e'),
-(655209515293343775,'Philosophy', 'f-j'),
-(655209520267657217,'Philosophy', 'k-o'),
-(655209525493628939,'Philosophy', 'p-t'),
-(655209529847316490,'Philosophy', 'u-z'),
-(655209539020259371,'Political', 'a-e'),
-(655209543034208256,'Political', 'f-j'),
-(655209547345952768,'Political', 'k-o'),
-(655209553188880404,'Political', 'p-t'),
-(655209556430946315,'Political', 'u-z'),
-(655209563607400459,'Religion', 'a-e'),
-(655209567143067668,'Religion', 'f-j'),
-(655209571404742667,'Religion', 'k-o'),
-(655209575611498506,'Religion', 'p-t'),
-(655209579868717066,'Religion', 'u-z'),
-(655209586365825024,'Romance', 'a-e'),
-(655209590564192286,'Romance', 'f-j'),
-(655209594678804481,'Romance', 'k-o'),
-(655209598927503360,'Romance', 'p-t'),
-(655209602035613706,'Romance', 'u-z'),
-(655209610805903370,'Science and Technology', 'a-e'),
-(655209615750987806,'Science and Technology', 'f-j'),
-(655209620050149387,'Science and Technology', 'k-o'),
-(655209625217662976,'Science and Technology', 'p-t'),
-(655209629932060692,'Science and Technology', 'u-z'),
-(655209638924517386,'Science Fiction', 'a-e'),
-(655209643127078912,'Science Fiction', 'f-j'),
-(655209647224913941,'Science Fiction', 'k-o'),
-(655209651796967435,'Science Fiction', 'p-t'),
-(655209655106011152,'Science Fiction', 'u-z'),
-(675760298660986938,'Self Help', 'a-e'),
-(675760368215261185,'Self Help', 'f-j'),
-(675760417766768701,'Self Help', 'k-o'),
-(675760480995901460,'Self Help', 'p-t'),
-(675760533412118588,'Self Help', 'u-z'),
-(675760260220452866,'Thriller', 'a-e'),
-(675760339022774339,'Thriller', 'f-j'),
-(675760399420882964,'Thriller', 'k-o'),
-(675760444215918633,'Thriller', 'p-t'),
-(675760508426780702,'Thriller', 'u-z'),
-(675759583129763851,'Other', 'a-e'),
-(675759623512260638,'Other', 'f-j'),
-(675759666323521546,'Other', 'k-o'),
-(675759700981186600,'Other', 'p-t'),
-(675759735865344033,'Other', 'u-z')
-]
+dictionary_list=list(cinm.keys())
+directory_id=[]
+print(dictionary_list)
+print("=============")
+directory_list = []
+for file in files:
+    ID = re.sub("[^0-9]", "", file)
+    print(ID)
+    if int(string) in dictionary_list:
+        directory_list.append(file)
+        directory_id.append(ID)
+    else:
+        os.remove(file)
+# print(directory_list)
+# print(directory_id)
+file_number=-1
 
-os.system('rm -f /home/robin/main/test-archive/*/*')
-
-
-i=0
-for tup in channel_ids:
-        os.system("cd /home/robin/main/DiscordChatExporterCLI/ ; dotnet DiscordChatExporter.Cli.dll export -t 'TOKEN' -b -c '{}' -f Csv -o '/home/robin/main/test-archive/' ; ".format(channel_ids[i][0]))
-        os.system("cd /home/robin/main/test-archive/ ; mv 'The Library - {} - {} [{}].csv' '{}/The Library - {} - {} [{}].csv'".format(channel_ids[i][1], channel_ids[i][2], channel_ids[i][0], channel_ids[i][1], channel_ids[i][1], channel_ids[i][2], channel_ids[i][0]))
-        i+=1
+for file in directory_list:
+    file_number+=1
+    file_directory_new_string = "C:\\Users\\Owner\\Documents\\Archive Programs\\Archive - Copy\\" + cinm[int(directory_id[file_number])]
+#     print(file_directory_new_string)
+    file_direct_new = file.replace("Archive - Copy", file_directory_new_string)
+#     print(file_direct_new)
+    os.rename(file, file_direct_new)
