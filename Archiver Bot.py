@@ -23,7 +23,8 @@ number_of_members=0
 number_of_titles=0
 titles_csv = []
 
-path = "C:\\Users\\Owner\\Documents\\Archive"
+path = "/home/robin/main/test-archive/"
+
 files = []
 
 for r, d, f in os.walk(path):
@@ -66,7 +67,7 @@ def update(titles_, author_list, title_list):
         print('AUTHORS: {}'.format(author_list))
         print('TITLE LIST: {}'.format(title_list))
         try:
-            sqliteConnection = sqlite3.connect('C://Users//Owner//Desktop//The Library.db')
+            sqliteConnection = sqlite3.connect('/home/robin/main/Archive-Programs/The-Librarys-Archivist-linux/The-Library.db')
             cursor = sqliteConnection.cursor()
             print("Successfully Connected to SQLite")
             
@@ -117,7 +118,7 @@ async def update_db(message):
     author_roles = message.author.roles
     if verify_user_roles(author_roles, "Librarian", "Admin", "Head Librarian (Owner)") == True:
         await message.channel.send("Updating archive... Please don't use any commands.")
-        exec(open("Archive Updater.py").read())
+        exec(open("/home/robin/main/Archive-Programs/The-Librarys-Archivist-linux/Archive-Updater.py").read())
         await message.channel.send("The server has been archived. Updating the database... Please don't use any commands.")
         for file in directory_list:
             titles_final = csv_parse(file)
@@ -144,9 +145,9 @@ async def update_db(message):
         finally:
             await message.channel.send("The database has been updated.")
             time.sleep(1)
-            await message.channel.send("Sending a .Zip of the Archive...")
-            shutil.make_archive("C:\\Users\\Owner\\Documents\\Archive Programs\\Archive - Csv", "zip", "Archive - Copy")
-            file = discord.File("C:\\Users\\Owner\\Documents\\Archive Programs\\Archive - Csv.zip", "Archive-Csv.zip")
+            await message.channel.send("Sending a .zip of the Archive...")
+            shutil.make_archive('/home/robin/main/test-archive/', 'zip', '/home/robin/main/test-archive/') 
+            file = discord.File('/home/robin/main/test-archive.zip', 'Archive-Csv.zip')
             await message.channel.send("",file=file)
     else:
         await message.channel.send("You can't use this command! Please ask a librarian or admin to use this command.")
@@ -164,7 +165,7 @@ async def add(message, *argv):
             try:
                 book_title = ' '.join(book_arg_list[:book_arg_list.index("by")])
                 book_author = ' '.join(book_arg_list[(book_arg_list.index("by") + 1):])
-                sqliteConnection = sqlite3.connect('C://Users//Owner//Desktop//The Library.db')
+                sqliteConnection = sqlite3.connect('/home/robin/main/Archive-Programs/The-Librarys-Archivist-linux/The-Library.db')
                 cursor = sqliteConnection.cursor()
                 await message.channel.send("Successfully Connected to the database.")
                 sqlite_insert_query = 'INSERT INTO Books (Title, Author) VALUES (\'{}\',\'{}\');'.format(book_title,book_author)
@@ -292,7 +293,7 @@ async def commands_list(message, *argv):
 
 **a!ama:** You can ask me a question using this command.
 
-**a!statistics:** *This command send you the current number of members in the Library and number of titles in the Library. The number of titles is updated daily and the number of members is updated automatically.*
+**a!stats:** *This command send you the current number of members in the Library and number of titles in the Library. The number of titles is updated daily and the number of members is updated automatically.*
 
 **a!desc:** *This command provides you with a description of a book given an ISBN number or title. Using ISBN is recommended since it provides a more accurate result.*
 
@@ -300,11 +301,11 @@ async def commands_list(message, *argv):
 """)
 
 @client.command()
-async def statistics(message):
+async def stats(message):
     try:
-        sqliteConnection = sqlite3.connect('C://Users//Owner//Desktop//The Library.db')
+        sqliteConnection = sqlite3.connect('/home/robin/main/Archive-Programs/The-Librarys-Archivist-linux/The-Library.db')
         cursor = sqliteConnection.cursor()
-        sqlite_insert_query = 'SELECT COUNT(*) FROM Books;'
+        sqlite_insert_query = 'SELECT COUNT(*) FROM books;'
         count = cursor.execute(sqlite_insert_query)
         sqliteConnection.commit()
         rows = cursor.fetchall()
@@ -317,7 +318,7 @@ async def statistics(message):
         if (sqliteConnection):
             sqliteConnection.close()
             print("The SQLite connection is closed")
-            await message.channel.send('**SERVER STATISTICS:**\nNumber of users: {}\nNumber of books: {}'.format(guild.member_count, number_of_books))
+            await message.channel.send('**SERVER STATISTICS:**\nNumber of users: {}\nNumber of books: {}'.format(message.guild.member_count, number_of_books))
             
 """
 MISCELLANEOUS COMMANDS:
