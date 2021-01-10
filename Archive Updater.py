@@ -113,6 +113,6 @@ os.system('rm -f /home/robin/main/test-archive/*/*')
 
 i=0
 for tup in channel_ids:
-        os.system("cd /home/robin/main/DiscordChatExporterCLI/ ; dotnet DiscordChatExporter.Cli.dll export -t 'NzU0NzgxNjY1NDk4MjM0OTEw.X15vNA.PXz6hjKd2A21cJfkJQiGj8DsIFA' -b -c '{}' -f Csv -o '/home/robin/main/test-archive/' ; ".format(channel_ids[i][0]))
+        os.system("cd /home/robin/main/DiscordChatExporterCLI/ ; dotnet DiscordChatExporter.Cli.dll export -t 'TOKEN' -b -c '{}' -f Csv -o '/home/robin/main/test-archive/' ; ".format(channel_ids[i][0]))
         os.system("cd /home/robin/main/test-archive/ ; mv 'The Library - {} - {} [{}].csv' '{}/The Library - {} - {} [{}].csv'".format(channel_ids[i][1], channel_ids[i][2], channel_ids[i][0], channel_ids[i][1], channel_ids[i][1], channel_ids[i][2], channel_ids[i][0]))
         i+=1
